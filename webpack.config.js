@@ -2,15 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
-function isDirectory(dir) {
-  return fs.lstatSync(dir).isDirectory()
-}
-
 module.exports = {
   devtool: 'source-map',
 
   entry: {
-    app: './src/app.js',
+    main: './src/main.js',
     vendor: [ 'react', 'react-dom' ]
   },
 
@@ -28,12 +24,22 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.js$/, exclude: /node_modules|mocha-browser\.js/, loader: 'babel' },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets:['react', 'es2015', 'stage-0'],
+          plugins: [
+            'transform-runtime',
+            'transform-decorators-legacy'
+          ]
+        }
+      },
       { test: /\.woff(2)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf$/, loader: 'file' },
       { test: /\.eot$/, loader: 'file' },
-      { test: /\.svg$/, loader: 'file' },
-      { test: require.resolve('jquery'), loader: 'expose?jQuery' }
+      { test: /\.svg$/, loader: 'file' }
     ]
   },
 
@@ -42,8 +48,10 @@ module.exports = {
   ],
 
   devServer: {
+    contentBase: path.join(__dirname, 'build'),
     quiet: false,
     noInfo: false,
+    port: 3000,
     // historyApiFallback: {
     //   rewrites: [
     //     { from: /ReduxDataFlow\/exercise.html/,

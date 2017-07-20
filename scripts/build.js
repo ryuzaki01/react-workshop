@@ -11,9 +11,9 @@ const markup = ReactDOMServer.renderToStaticMarkup(
       React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
     ),
     React.DOM.body({},
-      React.DOM.div({ id: 'app' }),
+      React.DOM.div({ id: 'root' }),
       React.DOM.script({ src: '/build/vendor.js' }),
-      React.DOM.script({ src: '/build/app.js' })
+      React.DOM.script({ src: '/build/main.js' })
     )
   )
 )
