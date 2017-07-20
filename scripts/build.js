@@ -7,9 +7,7 @@ const RootDir = path.resolve(__dirname, '..')
 
 const markup = ReactDOMServer.renderToStaticMarkup(
   React.DOM.html({},
-    React.DOM.head({},
-      React.DOM.link({ rel: 'stylesheet', href: '/shared.css' })
-    ),
+    React.DOM.head({}),
     React.DOM.body({},
       React.DOM.div({ id: 'root' }),
       React.DOM.script({ src: '/build/vendor.js' }),
